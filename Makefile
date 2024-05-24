@@ -16,11 +16,13 @@
 NAME          := terracov
 BUILD_DIR     := dist
 COVERAGE_DIR  := coverage
+TEST_TIMEOUT  := 10s
 NO_COLORS     ?= false
 GOARCH        ?= $(shell go env GOARCH)
 GOOS          ?= $(shell go env GOOS)
 VERSION       ?= $(shell git describe --tags --always --dirty | sed -e 's/^v//')
 REVISION      ?= $(shell git rev-parse --short HEAD)
+LDFLAGS       := ""
 
 # Colors
 ifeq ($(NO_COLORS),false)
@@ -40,6 +42,62 @@ all: help
 init: ## Initialize repository
 	@pre-commit install --hook-type pre-commit
 	@pre-commit install --hook-type commit-msg
+
+.PHONY: fmt
+fmt: ## Format source code
+	@go fmt ./...
+
+## Build
+.PHONY: build
+build: ## Build application
+	@mkdir -p ${BUILD_DIR}
+	@go build -o ${BUILD_DIR}/$(NAME) -ldflags ${LDFLAGS} cmd/$(NAME)/main.go
+
+.PHONY: clean
+clean: ## Clean build folder
+	@go clean
+	@rm -rf ${BUILD_DIR}
+
+## Test
+.PHONY: test
+test: ## Run unit tests
+	@gotestsum --format testname --packages ./... -- -timeout ${TEST_TIMEOUT} -race
+
+.PHONY: coverage
+coverage: ## Run unit tests with coverage report
+	@rm -rf ${COVERAGE_DIR}
+	@mkdir -p ${COVERAGE_DIR}
+	@go test -timeout ${TEST_TIMEOUT} -cover -covermode=atomic -race \
+			-coverprofile=${COVERAGE_DIR}/coverage.out ./...
+	@cat ${COVERAGE_DIR}/coverage.out | \
+			grep -v "mocks" | grep -v "main.go" > \
+			${COVERAGE_DIR}/coverage.final.out
+	@mv ${COVERAGE_DIR}/coverage.final.out ${COVERAGE_DIR}/coverage.out
+	@go tool cover -func ${COVERAGE_DIR}/coverage.out
+
+.PHONY: coverage-html
+coverage-html: coverage ## Open the coverage report in the browser
+	@go tool cover -html ${COVERAGE_DIR}/coverage.out
+
+## Inspect
+.PHONY: vet
+vet: ## Examine source code
+	@go vet ./...
+
+.PHONY: lint
+lint: ## Lint source code
+	@golint  -set_exit_status $(go list ./...)
+	@golangci-lint run $(go list ./...)
+
+.PHONY: complexity
+complexity: ## Calculates cyclomatic complexity
+	@gocyclo -top 10 .
+	@gocyclo -over 15 -avg .
+
+.PHONY: security
+security: ## Run security checks
+	@govulncheck ./...
+	@gosec -quiet -exclude-dir testdata ./...
 
 ## Help
 .PHONY: help
