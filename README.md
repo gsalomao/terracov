@@ -15,7 +15,7 @@
 &nbsp;What is Terracov?
 </h2>
 
-**Terracov** is a static analysis scanner for Infrastructure-as-Code (IaC).<br>
+**Terracov** is a static analysis scanner for Terraform.<br>
 
 Terracov scans cloud infrastructure provisioned using
 [Terraform](https://terraform.io/) and detects security issues and
