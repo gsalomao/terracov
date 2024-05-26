@@ -17,6 +17,8 @@ package main
 import (
 	"os"
 
+	"github.com/gsalomao/terracov/cmd/terracov/command"
+	"github.com/gsalomao/terracov/internal/build"
 	"github.com/urfave/cli/v2"
 )
 
@@ -61,6 +63,10 @@ func main() {
 			"and detects security issues and misconfiguration using standard " +
 			"or custom rules.",
 		HideHelpCommand: true,
+		Version:         build.GetInfo().Version,
+		Commands: []*cli.Command{
+			command.Version,
+		},
 	}
 
 	if err := app.Run(os.Args); err != nil {
