@@ -63,6 +63,10 @@ clean: ## Clean build folder
 test: ## Run unit tests
 	@gotestsum --format testname --packages ./... -- -timeout ${TEST_TIMEOUT} -race
 
+.PHONY: test-ci
+test-ci: ## Run unit tests on CI
+	@go test ./... -timeout ${TEST_TIMEOUT} -race
+
 .PHONY: coverage
 coverage: ## Run unit tests with coverage report
 	@rm -rf ${COVERAGE_DIR}
