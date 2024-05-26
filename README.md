@@ -4,6 +4,14 @@
   <source width="350" media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/gsalomao/terracov/master/docs/assets/logo/logo.svg">
   <img width="350" alt="Terracov Logo" src="https://raw.githubusercontent.com/gsalomao/terracov/master/docs/assets/logo/logo.svg">
 </picture>
+
+<br/>
+<br/>
+
+[![build][build-img]][build]
+[![Go Report Card][go-report-img]][go-report]
+[![License: Apache-2.0][license-img]][license]
+
 </div>
 
 <h2>
@@ -32,3 +40,10 @@ Please follow the [Contributing Guide](./CONTRIBUTING.md)
 ## 📃 License
 
 This project is released under [Apache 2.0 License](./LICENSE).
+
+[build]: https://github.com/gsalomao/terracov/actions/workflows/build.yml
+[build-img]: https://github.com/gsalomao/terracov/actions/workflows/build.yml/badge.svg
+[go-report]: https://goreportcard.com/report/github.com/gsalomao/terracov
+[go-report-img]: https://goreportcard.com/badge/github.com/gsalomao/terracov
+[license]: https://github.com/gsalomao/terracov/blob/master/LICENSE
+[license-img]: https://img.shields.io/badge/License-Apache%202.0-blue.svg
