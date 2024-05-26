@@ -9,6 +9,7 @@
 <br/>
 
 [![build][build-img]][build]
+[![coverage][coverage-img]][coverage]
 [![Go Report Card][go-report-img]][go-report]
 [![License: Apache-2.0][license-img]][license]
 
@@ -43,6 +44,8 @@ This project is released under [Apache 2.0 License](./LICENSE).
 
 [build]: https://github.com/gsalomao/terracov/actions/workflows/build.yml
 [build-img]: https://github.com/gsalomao/terracov/actions/workflows/build.yml/badge.svg
+[coverage]: https://codecov.io/gh/gsalomao/terracov
+[coverage-img]: https://codecov.io/gh/gsalomao/terracov/graph/badge.svg?token=OGlvXWbzwV
 [go-report]: https://goreportcard.com/report/github.com/gsalomao/terracov
 [go-report-img]: https://goreportcard.com/badge/github.com/gsalomao/terracov
 [license]: https://github.com/gsalomao/terracov/blob/master/LICENSE
