@@ -28,8 +28,8 @@ var (
 	buildTime = "2024-01-01 00:00:00" // The build time in UTC (year-month-day hour:min:sec).
 )
 
-// Info contains build information.
-type Info struct {
+// Build contains build information.
+type Build struct {
 	// The application version.
 	Version string
 
@@ -46,9 +46,9 @@ type Info struct {
 	GoVersion string
 }
 
-// GetInfo returns build information.
-func GetInfo() Info {
-	return Info{
+// GetBuild returns build information.
+func GetBuild() Build {
+	return Build{
 		Version:   version,
 		Revision:  revision,
 		BuildTime: buildTime,
@@ -58,7 +58,7 @@ func GetInfo() Info {
 }
 
 // LongVersion returns the application version in long format.
-func (b *Info) LongVersion() string {
+func (b *Build) LongVersion() string {
 	var buf bytes.Buffer
 	tw := tabwriter.NewWriter(&buf, 2, 1, 2, ' ', 0)
 
@@ -66,7 +66,7 @@ func (b *Info) LongVersion() string {
 	_, _ = fmt.Fprintf(tw, "Revision:      %s\n", b.Revision)
 	_, _ = fmt.Fprintf(tw, "Built:         %s\n", b.BuildTime)
 	_, _ = fmt.Fprintf(tw, "Platform:      %s\n", b.Platform)
-	_, _ = fmt.Fprintf(tw, "Go version:    %s\n", b.GoVersion)
+	_, _ = fmt.Fprintf(tw, "Go Version:    %s\n", b.GoVersion)
 
 	_ = tw.Flush()
 	return buf.String()

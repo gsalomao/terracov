@@ -63,7 +63,7 @@ func main() {
 			"and detects security issues and misconfiguration using standard " +
 			"or custom rules.",
 		HideHelpCommand: true,
-		Version:         build.GetInfo().Version,
+		Version:         build.GetBuild().Version,
 		Commands: []*cli.Command{
 			command.Version,
 		},

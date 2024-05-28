@@ -28,5 +28,12 @@ func TestVersion(t *testing.T) {
 
 	err := command.Version.Action(&cli.Context{App: &cli.App{Writer: out}})
 	require.NoError(t, err)
-	require.Contains(t, out.String(), "Version:")
+
+	str := out.String()
+	require.Contains(t, str, "Version:")
+	require.Contains(t, str, "Version: ")
+	require.Contains(t, str, "Revision: ")
+	require.Contains(t, str, "Built: ")
+	require.Contains(t, str, "Platform: ")
+	require.Contains(t, str, "Go Version: ")
 }

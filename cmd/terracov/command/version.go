@@ -21,6 +21,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+// Version is the CLI command to show the version and build information.
 var Version = &cli.Command{
 	Name:            "version",
 	Usage:           "Show version and build information",
@@ -31,7 +32,7 @@ var Version = &cli.Command{
 }
 
 func showVersion(w io.Writer) error {
-	info := build.GetInfo()
-	_, err := w.Write([]byte(info.LongVersion()))
+	b := build.GetBuild()
+	_, err := w.Write([]byte(b.LongVersion()))
 	return err
 }

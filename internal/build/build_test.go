@@ -19,15 +19,20 @@ import (
 	"testing"
 
 	"github.com/gsalomao/terracov/internal/build"
-	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
-func TestGetInfo(t *testing.T) {
-	info := build.GetInfo()
-	assert.Equal(t, runtime.Version(), info.GoVersion)
+func TestGetBuild(t *testing.T) {
+	b := build.GetBuild()
+	require.Equal(t, runtime.Version(), b.GoVersion)
 }
 
-func TestInfoLongVersion(t *testing.T) {
-	info := build.GetInfo()
-	assert.NotEmpty(t, info.LongVersion())
+func TestBuildLongVersion(t *testing.T) {
+	b := build.GetBuild()
+	str := b.LongVersion()
+	require.Contains(t, str, "Version: ")
+	require.Contains(t, str, "Revision: ")
+	require.Contains(t, str, "Built: ")
+	require.Contains(t, str, "Platform: ")
+	require.Contains(t, str, "Go Version: ")
 }
